@@ -1,0 +1,32 @@
+.trigger {
+    padding: 0 24px;
+    font-size: 18px;
+    line-height: 64px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .trigger:hover {
+    color: #1890ff;
+  }
+  .ant-layout-sider{
+    overflow: hidden;
+  }
+  .logo {
+    display: flex;
+    height: 42px;
+    margin: 16px;
+    background-color: #fff;
+    &-info{
+      padding-left: 10px;
+    }
+    &-title{
+      color: #3167EB;
+      font-size: large;
+    }
+    &-text{
+      color:#7CA2FF;
+    }
+  }
+  .no{
+    display: none;
+  }
