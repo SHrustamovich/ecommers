@@ -1,5 +1,5 @@
-import axios, { AxiosHeaders, AxiosInstance, AxiosRequestHeaders } from "axios";
-import { adminRefresh, domain } from "../utils/urls";
+import axios, { AxiosInstance, AxiosRequestHeaders } from "axios";
+import { adminRefresh, domain, mediaApi } from "../utils/urls";
 
 interface Axios extends AxiosInstance {
     [key: string]: any
@@ -7,10 +7,15 @@ interface Axios extends AxiosInstance {
 const $host: Axios = axios.create({
     baseURL: `${domain}`
 })
+axios({
+    method: ''
+})
 const $authHost: Axios = axios.create({
     baseURL: `${domain}`
 })
-
+export const $mediaApi: Axios = axios.create({
+    baseURL:`${mediaApi}`
+})
 $authHost.interceptors.request.use(
     (config ) => {
         const accessToken: string | null = localStorage.getItem('accessToken')
@@ -19,10 +24,8 @@ $authHost.interceptors.request.use(
         if (config.headers) {
             if (Boolean(accessToken)) {
 
-                // config.headers = { ...config.headers } as AxiosHeaders;
                 const headers = { ...config.headers } as Partial<AxiosRequestHeaders>;
                 headers['Authorization'] = `Bearer ${accessToken}`;
-                // config.headers['Authorization'] =  `Bearer ${accessToken}`;
                 config.headers = headers
             }
         }
@@ -34,20 +37,18 @@ $authHost.interceptors.request.use(
 )
 $authHost.interceptors.response.use(
     (response: any) => {
-        const originalRequest = response.config
+		return response
+    },
+    function(error){
+        const originalRequest = error.config
         let refreshToken = localStorage.getItem('refreshToken')
-        if (
-			(response.data.error === 'JWT_EXPIRED' ||
-				response.data.error === 'INVALID_JWT') &&
-			!!refreshToken
-		) {
+        if ((error.response.status === 401 || error.response.status === 400) && !!refreshToken) {
 			return $authHost
 				.post(adminRefresh, {
-					id: 1,
 					refreshToken: refreshToken,
 				})
 				.then((res) => {
-					if (res.data.code === 200) {
+					if (res.data.isOk) {
 						localStorage.setItem(
 							'accessToken',
 							res.data.accessToken
@@ -56,9 +57,6 @@ $authHost.interceptors.response.use(
 					}
 				})
 		}
-		return response
-    },
-    function (error){
         return Promise.reject(error)
     }
 )

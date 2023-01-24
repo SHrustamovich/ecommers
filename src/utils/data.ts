@@ -6,29 +6,31 @@ import {
     CrownOutlined,
     ReadOutlined
 } from '@ant-design/icons';
+import useLanguage from '../hooks/useLanguage';
+
 export const sidebarData = [
 	{
 		id: 1,
-		title: 'Products',
+		title: 'products',
 		icon: AppstoreOutlined,
 		path: '/',
 		active: '',
 		link: [
             {
                 id: 2,
-                title: 'Products',
+                title: 'products',
                 icon: AppstoreOutlined,
                 path: '/', 
             },
             {
                 id: 3,
-                title: 'Atributs',
+                title: 'atributs',
                 icon: AppstoreOutlined,
                 path: '/atribut', 
             },
             {
                 id: 4,
-                title: 'Product',
+                title: 'product',
                 icon: AppstoreOutlined,
                 path: '/product', 
             }
@@ -36,7 +38,7 @@ export const sidebarData = [
 	},
 	{
 		id: 5,
-		title: 'Orders',
+		title: 'orders',
 		icon: ShoppingOutlined,
 		path: '/orders',
 		active: '',
@@ -44,7 +46,7 @@ export const sidebarData = [
 	},
 	{
 		id: 6,
-		title: 'Categores',
+		title: 'categories',
 		icon: ApartmentOutlined,
 		path: '/category',
 		active: '',
@@ -52,7 +54,7 @@ export const sidebarData = [
 	},
 	{
 		id: 7,
-		title: 'Pages',
+		title: 'pages',
 		icon: FundViewOutlined,
 		path: '/pages',
 		active: '',
@@ -60,7 +62,7 @@ export const sidebarData = [
 	},
 	{
 		id: 8,
-		title: 'Brands',
+		title: 'brands',
 		icon: CrownOutlined,
 		path: '/brands',
 		active: '',
@@ -68,12 +70,11 @@ export const sidebarData = [
 	},
 	{
 		id: 9,
-		title: 'Banners',
+		title: 'banners',
 		icon: ReadOutlined,
 		path: '/banners',
 		active: '',
 		link: [],
 	}
 ]
-
 

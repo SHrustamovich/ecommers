@@ -12,7 +12,7 @@ import { SelectLang } from './SelectLang';
 import { routes } from '../utils/routes';
 import useAuthentication from '../hooks/useAuth';
 import { LoginPage } from '../pages/LoginPage';
-import OpenMadal from './OpenMadal';
+import useLanguage from '../hooks/useLanguage';
 const { Header, Sider, Content } = Layout;
 
 const Root: FC = () => {
@@ -30,6 +30,7 @@ const Root: FC = () => {
       info?.classList.remove('no')
      }
   }
+ const translate = useLanguage()
   return (
     <Layout>
       {
@@ -52,12 +53,12 @@ const Root: FC = () => {
               sidebarData.map((sidebarItem) => {
                 if(sidebarItem.link.length > 0){
                   return(
-                    <Menu.SubMenu key={sidebarItem.id} icon ={React.createElement(sidebarItem.icon)} title={sidebarItem.title} >
+                    <Menu.SubMenu key={sidebarItem.id} icon ={React.createElement(sidebarItem.icon)} title={translate(sidebarItem.title)} >
                       {sidebarItem.link.map((item) => {
                         return (
                           <Menu.Item key={item.path}>
                                  <NavLink to={item.path}>
-                                     {item.title}
+                                     {translate(item.title)}
                                  </NavLink>
                           </Menu.Item>
                         )
@@ -68,7 +69,7 @@ const Root: FC = () => {
                   return(
                     <Menu.Item key={sidebarItem.id} icon ={React.createElement(sidebarItem.icon)}>
                        <NavLink to={sidebarItem.path}>
-                               {sidebarItem.title}
+                               {translate(sidebarItem.title)}
                        </NavLink>
                     </Menu.Item>
                   )
