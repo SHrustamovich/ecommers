@@ -69,5 +69,5 @@ export interface orderedItemI {
 }
 export interface orderI {
     pagination:PaginationI
-    orders:ordersArrayI
+    orders:ordersArrayI[]
 }

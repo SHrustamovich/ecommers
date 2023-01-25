@@ -37,6 +37,9 @@ interface Trans {
     action:string
     name_uz:string
     click_to_upload:string
+    catedory_deleted:string
+    want_cate:string
+    d_product:string
 }
 const uz:Trans = {
     cancel: 'Bekor qilish',
@@ -76,7 +79,10 @@ const uz:Trans = {
     action:'Harakat',
     name_uz:'Nomi uz',
     click_to_upload:'Yuklash uchun bosing',
-    create_a_new_brand:'Yangi brendlarni yaratish'
+    create_a_new_brand:'Yangi brendlarni yaratish',
+    catedory_deleted:'Muaffaqiyatli o`chirildi',
+    want_cate:'Categoriyani o`chirib tashlamoqchimisiz?',
+    d_product:'Maxsulotni o`chirib tashlamoqchimisiz?'
 }
 const ru:Trans = {
     cancel: 'Отмена',
@@ -116,7 +122,10 @@ const ru:Trans = {
     action:'Действие',
     name_uz:'Имя',
     click_to_upload:'Нажмите, чтобы загрузить',
-    create_a_new_brand:'Создать новый бренды'
+    create_a_new_brand:'Создать новый бренды',
+    catedory_deleted:'Удалено успешно',
+    want_cate:'Вы хотите удалить категорию?',
+    d_product:'Вы хотите удалить продукта?'
 }
 interface LanguageKeyValuePairs {
 	[key: string]: Trans

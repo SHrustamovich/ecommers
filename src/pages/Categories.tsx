@@ -7,7 +7,6 @@ import { categoryI, categoryArrayI } from "../components/Drawers/types";
 import { CategoryMadal } from "../components/Drawers/CategoryMadal";
 import { DeleteModal } from "../components/DeleteModal";
 import useLanguage from "../hooks/useLanguage";
-import { LangEnums } from "../utils/helpers";
 
 const categoryInitials = {
     id:null,
@@ -33,13 +32,6 @@ export const Categories: FC = () => {
     const translate = useLanguage()
     const localCategory = localStorage.getItem('language')
 
-    const handleOk = () => {
-        setDeleteC(true)
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
     const categoryRequest = useLoad<categoryI>({ url: categoryList })
     const { loading, response } = categoryRequest
     // const categoryAll = response && response
@@ -57,7 +49,7 @@ export const Categories: FC = () => {
                 setElementLoading(false)
                 setIsModalOpen(false)
                 await categoryRequest.request()
-                message.success('catedory Deleted')
+                message.success(`${translate('catedory_deleted')}`)
             }
             if(!success){
                 setElementLoading(false)
@@ -65,9 +57,9 @@ export const Categories: FC = () => {
                 message.warning(error)
             }
     }
-    const deleteCategoryhandly = (e: any) => {
+    const deleteCategoryhandly = (id:number) => {
+        setCategoryItem({...categoryItem, id})
         setIsModalOpen(true);
-        setIdCategory(e)
     }
     const columns = [
         { title: `${translate('name')}`, dataIndex: 'name' },
@@ -90,7 +82,7 @@ export const Categories: FC = () => {
         <div className="orders">
             <div className="category-add"><CategoryMadal /></div>
             <DeleteModal
-                title='Do you want to delete the category?'
+                title={translate('want_cate')}
                 visible={isModalOpen}
                 loading={elementLoading}
                 onCancelHandler={() => setIsModalOpen(false)}

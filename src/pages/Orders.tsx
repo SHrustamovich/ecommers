@@ -7,6 +7,7 @@ import { orderI } from "./types";
 
 export const Orders:FC = () => {
 const translate = useLanguage()
+const localOrders = localStorage.getItem('language')
 const orderRequest = useLoad<orderI>({ url:orderList })
 const {loading,response} = orderRequest
     const columns = [
@@ -22,6 +23,14 @@ const {loading,response} = orderRequest
             <Table
             columns={columns}
             loading={loading}
+            dataSource = {response?.orders.map(item => ({
+                key:item.id,
+                id:item.id,
+                delivery_address:item.delivery_address,
+                delivery_phone:item.delivery_phone,
+                name:item.full_name,
+                product:item.order_it
+            }))}
             />
         </div>
     )

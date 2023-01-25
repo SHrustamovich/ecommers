@@ -7,7 +7,7 @@ export const deleteCategoryUrl = (id:number) => `/category/${id}`
 // products
 export const allproduct = '/product/list'
 export const addproduct = '/product/add'
-export const deleteproduct = (id:number) => `/product/${id}`
+export const deleteproductUrl = (id:number) => `/product/${id}`
 // brands
 export const barndsList = '/brand/list'
 export const addbrands = '/brand/add'
