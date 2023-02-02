@@ -6,7 +6,6 @@ import {
     CrownOutlined,
     ReadOutlined
 } from '@ant-design/icons';
-import useLanguage from '../hooks/useLanguage';
 
 export const sidebarData = [
 	{

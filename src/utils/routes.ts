@@ -7,33 +7,33 @@ import { Pages } from "../pages/Pages";
 
 export const routes = [
     {
-        id:1,
-        path:'/',
-        component:AllProducts
+        id: 1,
+        path: '/',
+        component: AllProducts
     },
     {
-        id:2,
-        path:'/orders',
-        component:Orders
+        id: 2,
+        path: '/orders',
+        component: Orders
     },
     {
-        id:3,
-        path:'/category',
-        component:Categories
+        id: 3,
+        path: '/category',
+        component: Categories
     },
     {
-        id:4,
-        path:'/pages',
-        component:Pages
+        id: 4,
+        path: '/pages',
+        component: Pages
     },
     {
-        id:5,
-        path:'/brands',
-        component:Brands
+        id: 5,
+        path: '/brands',
+        component: Brands
     },
     {
-        id:6,
-        path:'/banners',
-        component:Banners
+        id: 6,
+        path: '/banners',
+        component: Banners
     }
 ]

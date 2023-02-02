@@ -14,10 +14,10 @@ const $authHost: Axios = axios.create({
     baseURL: `${domain}`
 })
 export const $mediaApi: Axios = axios.create({
-    baseURL:`${mediaApi}`
+    baseURL: `${mediaApi}`
 })
 $authHost.interceptors.request.use(
-    (config ) => {
+    (config) => {
         const accessToken: string | null = localStorage.getItem('accessToken')
 
 
@@ -37,26 +37,26 @@ $authHost.interceptors.request.use(
 )
 $authHost.interceptors.response.use(
     (response: any) => {
-		return response
+        return response
     },
-    function(error){
+    function (error) {
         const originalRequest = error.config
         let refreshToken = localStorage.getItem('refreshToken')
         if ((error.response.status === 401 || error.response.status === 400) && !!refreshToken) {
-			return $authHost
-				.post(adminRefresh, {
-					refreshToken: refreshToken,
-				})
-				.then((res) => {
-					if (res.data.isOk) {
-						localStorage.setItem(
-							'accessToken',
-							res.data.accessToken
-						)
-						return $authHost(originalRequest)
-					}
-				})
-		}
+            return $authHost
+                .post(adminRefresh, {
+                    refreshToken: refreshToken,
+                })
+                .then((res) => {
+                    if (res.data.isOk) {
+                        localStorage.setItem(
+                            'accessToken',
+                            res.data.accessToken
+                        )
+                        return $authHost(originalRequest)
+                    }
+                })
+        }
         return Promise.reject(error)
     }
 )

@@ -1,5 +1,5 @@
 import { message } from "antd"
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
 import { $authHost } from "../utils/https"
 type ReturnType<T> = {
     response?: T
@@ -67,13 +67,13 @@ export const useRequest = <T>(options = {}) => {
         error,
         response,
     }
-    
+
 }
 export const useLoad = <T>(options = {}, dependencies = []) => {
-	const request = useGetRequest<T>({ ...options })
-	useEffect(() => {
-		request.request()
-	}, dependencies)
+    const request = useGetRequest<T>({ ...options })
+    useEffect(() => {
+        request.request()
+    }, dependencies)
 
-	return request
+    return request
 }

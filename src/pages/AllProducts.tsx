@@ -1,91 +1,122 @@
 import { FC, useState } from "react";
-import { Button, message, Space, Table } from 'antd';
+import { Button, message, Space, Table } from "antd";
 import { useDeleteRequest, useLoad } from "../hooks/requies";
-import { allproduct, deleteproductUrl } from "../utils/urls";
-import OpenMadal from "../components/Drawers/ProductsMadal";
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import useLanguage from "../hooks/useLanguage";
 import { DeleteModal } from "../components/DeleteModal";
+import { allproduct, deleteproductUrl } from "../utils/urls";
+import useLanguage from "../hooks/useLanguage";
+import OpenMadal from "../components/Drawers/ProductsMadal";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { PostProductI } from "../components/Drawers/types";
 
-interface DataType {
+export interface DataType {
     id: null | number;
     name_uz: string;
-    name_ru:string
+    name_ru: string;
     image: string;
     price: string;
     description: string;
 }
 
 export interface PaginationI {
-    current: number
-    next: number
-    per_page: number
-    previous: null
-    total: number
-    total_pages: number
-
+    current: number;
+    next: number;
+    per_page: number;
+    previous: null;
+    total: number;
+    total_pages: number;
 }
 
 interface ProductListRequestI {
-    products: DataType[],
-    pagination: PaginationI
+    products: PostProductI[];
+    pagination: PaginationI;
 }
 
 const productItitials = {
     id: null,
-    name_uz: '',
-    name_ru:'',
-    image: '',
-    price: '',
-    description: '',
-}
+    name_uz: "",
+    name_ru: "",
+    description_uz: "",
+    description_ru: "",
+    slug: "",
+    category_id: null,
+    brand_id: null,
+    quantity: null,
+    attributes: "",
+    previous_price: null,
+    price: null,
+    image: "",
+    images: "",
+    discount: null,
+};
 
 export const AllProducts: FC = () => {
-    const [productItem,setProductItem] = useState<DataType>(productItitials)
-    const [elementLoading,setElementLoading] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [productItem, setProductItem] =
+        useState<PostProductI>(productItitials);
+    const [elementLoading, setElementLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editProductItem, setEditProductItem] = useState<PostProductI | null>(
+        null
+    );
     // translate
-    const translate = useLanguage()
-    const lacalLanguage = localStorage.getItem("language")
-    const productRequest = useLoad<ProductListRequestI>({ url: allproduct })
-    const { loading, response } = productRequest
+    const translate = useLanguage();
+    const lacalLanguage = localStorage.getItem("language");
+    const productRequest = useLoad<ProductListRequestI>({ url: allproduct });
+    const { loading, response } = productRequest;
     // delete
-    const deleteProdct = useDeleteRequest()
+    const deleteProdct = useDeleteRequest();
+
+    const showDrawer = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
+
+    const handlyProductEdit = (item: any) => {
+        setEditProductItem(item);
+        showDrawer();
+    };
     const deletehandly = async () => {
-     setElementLoading(true)
-     const { success, error } =await deleteProdct.request({
-        url:deleteproductUrl(productItem.id as number)
-     })
-     if(success){
-        setElementLoading(false)
-        setIsModalOpen(false)
-        await productRequest.request()
-        message.success(`${translate('catedory_deleted')}`)
-     }
-     if(!success){
-        setElementLoading(false)
-        setIsModalOpen(false)
-        message.warning(error)
-     }
-    }
-    const handlyDelete = (id:number) => {
-        setProductItem({...productItem, id})
-       setIsModalOpen(true)
-       
-    }
+        setElementLoading(true);
+        const { success, error } = await deleteProdct.request({
+            url: deleteproductUrl(productItem.id as number),
+        });
+        if (success) {
+            setElementLoading(false);
+            setIsModalOpen(false);
+            await productRequest.request();
+            message.success(`${translate("catedory_deleted")}`);
+        }
+        if (!success) {
+            setElementLoading(false);
+            setIsModalOpen(false);
+            message.warning(error);
+        }
+    };
+    const handlyDelete = (id: number) => {
+        setProductItem({ ...productItem, id });
+        setIsModalOpen(true);
+    };
     const columns = [
-        { title: `${translate('name')}`, dataIndex: 'name' },
-        { title: `${translate('image')}`, dataIndex: 'image', render: (image: string) => <img width={70} src={image} /> },
-        { title: `${translate('price')}`, dataIndex: 'price' },
+        { title: `${translate("name")}`, dataIndex: "name_uz", key: "name_uz" },
         {
-            title: `${translate('action')}`,
-            dataIndex: '',
-            render: ({id}:any) => (
+            title: `${translate("image")}`,
+            dataIndex: "image",
+            key: "image",
+            render: (image: string) => <img width={70} src={image} />,
+        },
+        { title: `${translate("price")}`, dataIndex: "price" },
+        {
+            title: `${translate("action")}`,
+            dataIndex: "",
+            render: (record: any) => (
                 <Space size={10}>
-                    <Button>
+                    <Button onClick={() => handlyProductEdit(record)}>
                         <EditOutlined />
                     </Button>
-                    <Button danger onClick={() => handlyDelete(id)}>
+                    <Button danger onClick={() => handlyDelete(record.id)}>
                         <DeleteOutlined />
                     </Button>
                 </Space>
@@ -94,27 +125,36 @@ export const AllProducts: FC = () => {
     ];
 
     return (
-        <div className="all-products">
-            <div className="open-madal"> <OpenMadal /></div>
+        <div className='all-products'>
+            <div className='category-add'>
+                <Button
+                    type='primary'
+                    onClick={showDrawer}
+                    icon={<PlusOutlined />}
+                >
+                    {translate("create_pruduct")}
+                </Button>
+            </div>
+            <div className='open-madal'>
+                <OpenMadal
+                    onClose={onClose}
+                    open={open}
+                    editProductItem={editProductItem}
+                />
+            </div>
             <DeleteModal
-            title={translate("d_product")}
-            visible={isModalOpen}
-            loading={elementLoading}
-            onCancelHandler={() => setIsModalOpen(false)}
-            onOkHandler={deletehandly}
+                title={translate("d_product")}
+                visible={isModalOpen}
+                loading={elementLoading}
+                onCancelHandler={() => setIsModalOpen(false)}
+                onOkHandler={deletehandly}
             />
             <Table
                 columns={columns}
                 loading={loading}
-                dataSource={response?.products?.map((item) => ({
-                    key: item.id,
-                    id: item.id,
-                    name: lacalLanguage == 'uz' ? item.name_uz : item.name_ru,
-                    image: item.image,
-                    price: item.price
-                }))}
-                pagination={response?.pagination}
+                dataSource={response?.products?.map((item) => item)}
+                pagination={false}
             />
         </div>
-    )
-}
+    );
+};
