@@ -1,14 +1,14 @@
 import { FC, useContext } from "react";
-import { Select } from 'antd';
+import { Select } from "antd";
 import { LanguageContext } from "../context/languageContext";
 import { LangEnums } from "../utils/helpers";
-const { Option } = Select
+const { Option } = Select;
 export const SelectLang: FC = () => {
-    const { language, setLanguage } = useContext(LanguageContext)
+    const { language, setLanguage } = useContext(LanguageContext);
     const handlyChange = (target: LangEnums) => {
-        localStorage.setItem('language', target)
-        setLanguage?.(target)
-    }
+        localStorage.setItem("language", target);
+        setLanguage?.(target);
+    };
     return (
         <>
             <Select
@@ -20,5 +20,5 @@ export const SelectLang: FC = () => {
                 <Option value='ru'>Ru</Option>
             </Select>
         </>
-    )
-}
+    );
+};

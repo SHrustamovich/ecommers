@@ -32,7 +32,6 @@ export const Brands: FC = () => {
     const localBrands = localStorage.getItem("language");
     const translate = useLanguage();
 
-
     const showDrawer = () => {
         setOpen(true);
     };
@@ -42,8 +41,8 @@ export const Brands: FC = () => {
     };
 
     const clearInputBrands = () => {
-        setEditBrandItem(null)
-    }
+        setEditBrandItem(null);
+    };
 
     const editBrand = (item: brandsListI) => {
         setEditBrandItem(item);
@@ -87,7 +86,7 @@ export const Brands: FC = () => {
                     open={open}
                     onClose={onClose}
                     editBrandItem={editBrandItem}
-                    clearInputBrands = {clearInputBrands}
+                    clearInputBrands={clearInputBrands}
                 />
             </div>
             <div className='brand-cards'>

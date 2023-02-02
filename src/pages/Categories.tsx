@@ -70,7 +70,7 @@ export const Categories: FC = () => {
     };
 
     const columns = [
-        { title: `${translate("name")}`, dataIndex: "name_uz", key: 'name_uz'},
+        { title: `${translate("name")}`, dataIndex: "name_uz", key: "name_uz" },
         {
             title: `${translate("action")}`,
             dataIndex: "action",

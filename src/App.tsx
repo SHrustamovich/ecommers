@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import Root from './components/Root';
+import { FC } from "react";
+import Root from "./components/Root";
 const App: FC = () => {
-  return <Root />
+    return <Root />;
 };
 
 export default App;

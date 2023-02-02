@@ -8,32 +8,32 @@ import { Pages } from "../pages/Pages";
 export const routes = [
     {
         id: 1,
-        path: '/',
-        component: AllProducts
+        path: "/",
+        component: AllProducts,
     },
     {
         id: 2,
-        path: '/orders',
-        component: Orders
+        path: "/orders",
+        component: Orders,
     },
     {
         id: 3,
-        path: '/category',
-        component: Categories
+        path: "/category",
+        component: Categories,
     },
     {
         id: 4,
-        path: '/pages',
-        component: Pages
+        path: "/pages",
+        component: Pages,
     },
     {
         id: 5,
-        path: '/brands',
-        component: Brands
+        path: "/brands",
+        component: Brands,
     },
     {
         id: 6,
-        path: '/banners',
-        component: Banners
-    }
-]
+        path: "/banners",
+        component: Banners,
+    },
+];

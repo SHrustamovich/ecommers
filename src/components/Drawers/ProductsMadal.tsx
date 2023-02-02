@@ -9,9 +9,9 @@ import {
     Upload,
     UploadFile,
 } from "antd";
-import { Button, Drawer, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useLoad, usePostRequest } from "../../hooks/requies";
+import { Button, Drawer, Form, Input, Select } from "antd";
 import {
     addproduct,
     barndsList,
@@ -31,7 +31,6 @@ const OpenMadal: React.FC<ProductProps> = ({
     open,
     editProductItem,
 }) => {
-    console.log(editProductItem)
     const [fileList, setFileList] = useState<UploadFile<errorI>[]>([]);
     const [loadingi, setLoading] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
@@ -141,7 +140,6 @@ const OpenMadal: React.FC<ProductProps> = ({
                     }
                 );
                 const data = mediaAddRequest.data;
-                console.log(data);
                 setFileList([
                     ...fileList,
                     {

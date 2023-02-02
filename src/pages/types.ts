@@ -10,9 +10,9 @@ export interface IProducts {
 }
 
 export interface ProductProps {
-    open:boolean
-    onClose: () => void
-    editProductItem:PostProductI | null
+    open: boolean;
+    onClose: () => void;
+    editProductItem: PostProductI | null;
 }
 
 // category
@@ -38,9 +38,9 @@ export interface categoryEdit {
 // brands interface
 export interface brandMain {
     open: boolean;
-    onClose: () => void
-    editBrandItem: brandsListI | null
-    clearInputBrands:() => void
+    onClose: () => void;
+    editBrandItem: brandsListI | null;
+    clearInputBrands: () => void;
 }
 export interface brandsListI {
     id: number;

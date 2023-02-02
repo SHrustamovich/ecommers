@@ -1,7 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { usePostRequest, usePutRequest } from "../../hooks/requies";
 import { addbrands, editBrands, mediaAdd, mediaDelete } from "../../utils/urls";
-import { brandsI } from "./types";
 import useLanguage from "../../hooks/useLanguage";
 import { errorI } from "./CategoryMadal";
 import { $mediaApi } from "../../utils/https";
@@ -42,10 +41,9 @@ export const BrandsModal: FC<brandMain> = ({
     const clearInpurBrand = () => {
         onClose();
         form.resetFields();
-      clearInputBrands();
-      console.log(editBrandItem)
+        clearInputBrands();
     };
-     
+
     const handlyEncrypted = () => {
         return AES.encrypt(
             JSON.stringify({
@@ -173,15 +171,13 @@ export const BrandsModal: FC<brandMain> = ({
         </div>
     );
 
-    // post
-
-    console.log(editBrandItem);
+    // post and edit
     const onFinish = async (e: any) => {
         const { name_uz, name_ru, image } = e;
         if (editBrandItem) {
             const { success, error } =
                 await brandEditRequest.request<brandsListI>({
-                    data: { name_uz, name_ru, image},
+                    data: { name_uz, name_ru, image },
                 });
             if (success) {
                 onClose();

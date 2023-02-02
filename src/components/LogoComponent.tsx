@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import Logo from '../assets/icon/Logo'
+import { FC } from "react";
+import Logo from "../assets/icon/Logo";
 
 export const LogoComponent: FC = () => {
     return (
@@ -10,5 +10,5 @@ export const LogoComponent: FC = () => {
                 <span className='logo-text'>ecommers</span>
             </div>
         </>
-    )
-}
+    );
+};
