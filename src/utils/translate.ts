@@ -38,8 +38,12 @@ interface Trans {
     name_uz: string;
     click_to_upload: string;
     catedory_deleted: string;
+    // attribute_deleted: string;
     want_cate: string;
+    want_att: string;
     d_product: string;
+    create_a_new_attribute: string
+    create_attribute:string
 }
 const uz: Trans = {
     cancel: "Bekor qilish",
@@ -80,9 +84,12 @@ const uz: Trans = {
     name_uz: "Nomi uz",
     click_to_upload: "Yuklash uchun bosing",
     create_a_new_brand: "Yangi brendlarni yaratish",
+    create_a_new_attribute: "Yangi attribute yaratish",
     catedory_deleted: "Muaffaqiyatli o`chirildi",
     want_cate: "Categoriyani o`chirib tashlamoqchimisiz?",
+    want_att: "Attributni o`chirib tashlamoqchimisiz?",
     d_product: "Maxsulotni o`chirib tashlamoqchimisiz?",
+    create_attribute: "Attribute yaratish",
 };
 const ru: Trans = {
     cancel: "Отмена",
@@ -96,6 +103,7 @@ const ru: Trans = {
     banners: "Баннеры",
     create_pruduct: "Создание продукта",
     create_category: "Создать категорию",
+    create_attribute: "Создать аттрибут",
     create_brand: "Создать бренды",
     name: "Имя",
     image: "Рисунок",
@@ -125,7 +133,9 @@ const ru: Trans = {
     create_a_new_brand: "Создать новый бренды",
     catedory_deleted: "Удалено успешно",
     want_cate: "Вы хотите удалить категорию?",
+    want_att: "Вы хотите удалить аттрибут?",
     d_product: "Вы хотите удалить продукта?",
+    create_a_new_attribute:'Создать новую аттрибут'
 };
 interface LanguageKeyValuePairs {
     [key: string]: Trans;

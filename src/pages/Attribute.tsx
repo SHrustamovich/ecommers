@@ -1,61 +1,59 @@
+import { Button, message, Space, Table } from "antd";
 import { FC, useState } from "react";
-import { Button, Drawer, message, Space, Table } from "antd";
-import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import useLanguage from "../hooks/useLanguage";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDeleteRequest, useLoad } from "../hooks/requies";
-import { categoryI, categoryArrayI } from "../components/Drawers/types";
-import { CategoryMadal } from "../components/Drawers/CategoryMadal";
+import { attributeDelete, attributeList } from "../utils/urls";
+import { attributeMain, attributes } from "./types";
+import { AttributeModal } from "../components/Drawers/AttributeModal";
 import { DeleteModal } from "../components/DeleteModal";
-import { categoryList, deleteCategoryUrl } from "../utils/urls";
 
-const categoryInitials = {
+const attributeInitials = {
     id: null,
+    is_filterable: null,
+    slug:"",
     name_uz: "",
     name_ru: "",
-    image: "",
-    slug: "",
-    parent_id: null,
+    attributeValues:[]
 };
 
-export const Categories: FC = () => {
+export const Attribute: FC = () => {
     const [open, setOpen] = useState(false);
-    const [categoryItem, setCategoryItem] =
-        useState<categoryArrayI>(categoryInitials);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [elementLoading, setElementLoading] = useState(false);
-    const [editDataValue, setEditDataValue] = useState<categoryArrayI | null>(
-        null
-    );
+    const [attributeItem, setAttributeItem] =
+        useState<attributes>(attributeInitials);
+    const [editAttribute,setEditAttribute] = useState<attributes | null>(null)
 
+    const ListAttribute = useLoad<attributeMain>({ url: attributeList });
+    const { loading, response } = ListAttribute;
+
+    const deleteAttributeRequest = useDeleteRequest();
     const translate = useLanguage();
-
-    const categoryRequest = useLoad<categoryI>({ url: categoryList });
-    const categoryDelete = useDeleteRequest();
-    const { loading, response } = categoryRequest;
+    // const localAttribut = localStorage.getItem('language')
 
     const openDriver = () => {
         setOpen(true);
     };
 
-    const closeDriver = () => {
+    const onClose = () => {
         setOpen(false);
-        setEditDataValue(null);
     };
 
-    async function editCategoryData(editData: any) {
-        setEditDataValue(editData);
+    const editCategoryData = (item: any) => {
+        setEditAttribute(item)
         openDriver();
-    }
+    };
 
-    const deleteHandly = async () => {
+    const deleteBrandHandly = async () => {
         setElementLoading(true);
-        const { success, error } = await categoryDelete.request({
-            url: deleteCategoryUrl(categoryItem?.id as number),
+        const { success, error } = await deleteAttributeRequest.request({
+            url: attributeDelete(attributeItem?.id as number),
         });
         if (success) {
             setElementLoading(false);
             setIsModalOpen(false);
-            await categoryRequest.request();
+            await ListAttribute.request();
             message.success(`${translate("catedory_deleted")}`);
         } else {
             setElementLoading(false);
@@ -63,9 +61,8 @@ export const Categories: FC = () => {
             message.warning(error);
         }
     };
-
     const deleteCategoryhandly = (id: number) => {
-        setCategoryItem({ ...categoryItem, id });
+        setAttributeItem({ ...attributeItem, id })
         setIsModalOpen(true);
     };
 
@@ -73,7 +70,6 @@ export const Categories: FC = () => {
         { title: `${translate("name")}`, dataIndex: "name_uz", key: "name_uz" },
         {
             title: `${translate("action")}`,
-            dataIndex: "action",
             render: (record: any) => {
                 return (
                     <Space size={10}>
@@ -91,47 +87,29 @@ export const Categories: FC = () => {
             },
         },
     ];
-
     return (
-        <div className='orders'>
+        <div className='attribut'>
             <div className='category-add'>
                 <Button
                     type='primary'
                     onClick={openDriver}
                     icon={<PlusOutlined />}
                 >
-                    {translate("create_category")}
+                    {translate("create_attribute")}
                 </Button>
             </div>
-            {open && (
-                <Drawer
-                    title={translate("create_a_new_category")}
-                    width={820}
-                    onClose={closeDriver}
-                    open={open}
-                    bodyStyle={{ paddingBottom: 80 }}
-                >
-                    <CategoryMadal
-                        editData={editDataValue}
-                        elementLoading={elementLoading}
-                        closeDriver={closeDriver}
-                    />
-                </Drawer>
-            )}
-
+            <AttributeModal open={open} onClose={onClose} editAttribute={editAttribute} />
             <DeleteModal
-                title={translate("want_cate")}
+                title={translate("want_att")}
                 visible={isModalOpen}
                 loading={elementLoading}
                 onCancelHandler={() => setIsModalOpen(false)}
-                onOkHandler={deleteHandly}
+                onOkHandler={deleteBrandHandly}
             />
             <Table
                 columns={columns}
                 loading={loading}
-                dataSource={response?.categories?.map((item) => item)}
-                rowKey = 'id'
-                pagination={false}
+                dataSource={response?.attributes?.map((item) => item)}
             />
         </div>
     );

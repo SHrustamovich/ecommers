@@ -70,3 +70,33 @@ export interface orderI {
     pagination: PaginationI;
     orders: ordersArrayI[];
 }
+// attribute
+export interface attributes {
+    id: number | null;
+    is_filterable: number | null;
+    slug: string;
+    name_uz: string;
+    name_ru: string;
+    attributeValues: attributeValues[];
+}
+export interface attributePost {
+    name_uz: string;
+    name_ru: string;
+    is_filterable: number;
+}
+export interface attributeValues {
+    id: number | null;
+    attribute_id: number;
+    value_uz: string;
+    value_ru: string;
+}
+export interface attributeMain {
+    status: string;
+    attributes: attributes[];
+}
+
+export interface mainAttribute {
+    open: boolean;
+    onClose: () => void;
+    editAttribute: attributes | null;
+}

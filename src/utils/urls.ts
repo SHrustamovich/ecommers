@@ -15,6 +15,11 @@ export const barndsList = "/brand/list";
 export const addbrands = "/brand/add";
 export const deleteBrands = (id: number) => `/brand/delete/${id}`;
 export const editBrands = (id: number) => `/brand/update/${id}`;
+// attribute
+export const attributeList = "/attribute/list";
+export const attributeAdd = "/attribute/add";
+export const attributeDelete = (id:number) => `/attribute/delete/${id}`
+export const attributeUpdate = (id:number) => `/attribute/update/${id}`
 // media
 export const postMedia = "/api/v1/aws";
 
