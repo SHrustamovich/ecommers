@@ -11,10 +11,10 @@ import { DeleteModal } from "../components/DeleteModal";
 const attributeInitials = {
     id: null,
     is_filterable: null,
-    slug:"",
+    slug: "",
     name_uz: "",
     name_ru: "",
-    attributeValues:[]
+    attributeValues: [],
 };
 
 export const Attribute: FC = () => {
@@ -23,7 +23,7 @@ export const Attribute: FC = () => {
     const [elementLoading, setElementLoading] = useState(false);
     const [attributeItem, setAttributeItem] =
         useState<attributes>(attributeInitials);
-    const [editAttribute,setEditAttribute] = useState<attributes | null>(null)
+    const [editAttribute, setEditAttribute] = useState<attributes | null>(null);
 
     const ListAttribute = useLoad<attributeMain>({ url: attributeList });
     const { loading, response } = ListAttribute;
@@ -41,7 +41,7 @@ export const Attribute: FC = () => {
     };
 
     const editCategoryData = (item: any) => {
-        setEditAttribute(item)
+        setEditAttribute(item);
         openDriver();
     };
 
@@ -62,7 +62,7 @@ export const Attribute: FC = () => {
         }
     };
     const deleteCategoryhandly = (id: number) => {
-        setAttributeItem({ ...attributeItem, id })
+        setAttributeItem({ ...attributeItem, id });
         setIsModalOpen(true);
     };
 
@@ -98,7 +98,11 @@ export const Attribute: FC = () => {
                     {translate("create_attribute")}
                 </Button>
             </div>
-            <AttributeModal open={open} onClose={onClose} editAttribute={editAttribute} />
+            <AttributeModal
+                open={open}
+                onClose={onClose}
+                editAttribute={editAttribute}
+            />
             <DeleteModal
                 title={translate("want_att")}
                 visible={isModalOpen}

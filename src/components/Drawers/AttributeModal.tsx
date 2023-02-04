@@ -4,12 +4,17 @@ import { usePostRequest, usePutRequest } from "../../hooks/requies";
 import useLanguage from "../../hooks/useLanguage";
 import { attributePost, attributes, mainAttribute } from "../../pages/types";
 import { attributeAdd, attributeUpdate } from "../../utils/urls";
-export const AttributeModal: FC<mainAttribute> = ({ open, onClose, editAttribute }) => {
-    
-    const attributePost = usePostRequest<attributePost>({ url: attributeAdd })
-    
-    const attributePut = usePutRequest<attributes>({ url: attributeUpdate(editAttribute?.id as number) })
-    
+export const AttributeModal: FC<mainAttribute> = ({
+    open,
+    onClose,
+    editAttribute,
+}) => {
+    const attributePost = usePostRequest<attributePost>({ url: attributeAdd });
+
+    const attributePut = usePutRequest<attributes>({
+        url: attributeUpdate(editAttribute?.id as number),
+    });
+
     const translate = useLanguage();
     const clearInpurBrand = () => {
         form.resetFields();
@@ -18,13 +23,12 @@ export const AttributeModal: FC<mainAttribute> = ({ open, onClose, editAttribute
 
     const [form] = Form.useForm();
 
-    const onFinish = async(item: any) => {
+    const onFinish = async (item: any) => {
         const { name_uz, name_ru, is_filterable } = item;
         if (editAttribute) {
-            const { success, error } =
-                await attributePut.request<attributes>({
-                    data: { name_uz, name_ru, is_filterable },
-                });
+            const { success, error } = await attributePut.request<attributes>({
+                data: { name_uz, name_ru, is_filterable },
+            });
             if (success) {
                 onClose();
                 message.success("Attribute update");
@@ -46,13 +50,13 @@ export const AttributeModal: FC<mainAttribute> = ({ open, onClose, editAttribute
                 message.error("error");
             }
         }
-     };
-    
+    };
+
     useEffect(() => {
         if (editAttribute != null) {
             form.setFieldsValue(editAttribute);
         }
-    },[editAttribute])
+    }, [editAttribute]);
     return (
         <>
             <Drawer
