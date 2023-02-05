@@ -68,6 +68,11 @@ const OpenMadal: React.FC<ProductProps> = ({
         ).toString();
     };
 
+    const closeDriwer = () => {
+        form.resetFields()
+        onClose()
+    }
+
     const handleCancel = () => setPreviewOpen(false);
 
     const handlySelectCategory = (value: string) => {
@@ -251,7 +256,7 @@ const OpenMadal: React.FC<ProductProps> = ({
             <Drawer
                 title={translate("create_a_new_product")}
                 width={920}
-                onClose={onClose}
+                onClose={closeDriwer}
                 open={open}
                 bodyStyle={{ paddingBottom: 80 }}
             >
